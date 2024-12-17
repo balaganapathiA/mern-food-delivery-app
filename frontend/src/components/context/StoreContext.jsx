@@ -1,33 +1,32 @@
 import { createContext, useEffect, useState } from "react";
-import axios from 'axios'
+import axios from 'axios';
 
-export const StoreContext = createContext(null)
+export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
-
     const [cartItems, setCartItems] = useState({});
-    const url = "http://localhost:3000";
-    const [token,setToken] = useState("");
-
     const [food_list, setFoodList] = useState([]);
+    const [token, setToken] = useState("");
+    const [discount, setDiscount] = useState(0);  // Add state for discount
+    const url = "http://localhost:4000";
 
     const addToCart = async (itemId) => {
         if (!cartItems[itemId]) {
-            setCartItems((prev) => ({ ...prev, [itemId]: 1 }))
+            setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
         } else {
-            setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }))
+            setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
         }
-        if(token){
-            await axios.post(url+'/api/cart/add',{itemId},{headers:{token}})
+        if (token) {
+            await axios.post(url + '/api/cart/add', { itemId }, { headers: { token } });
         }
-    }
+    };
 
     const removeFromCart = async (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-        if(token){
-            await axios.post(url+'/api/cart/remove',{itemId},{headers:{token}})
+        if (token) {
+            await axios.post(url + '/api/cart/remove', { itemId }, { headers: { token } });
         }
-    }
+    };
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
@@ -41,35 +40,55 @@ const StoreContextProvider = (props) => {
                 }
             }
         }
-        return totalAmount;
+    
+        // Apply the discount to the total amount
+        totalAmount -= discount;  // Ensure the discount is applied here
+    
+        return totalAmount < 0 ? 0 : totalAmount; // To ensure we never return a negative total
     };
     
 
-    const fetchFoodList = async () =>{
-        const response = await axios.get(url+"/api/food/list");
-        setFoodList(response.data.data)
-    }
+    const applyPromoCode = (code) => {
+        // Example promo code logic
+        if (code === 'kavi04') {
+            // Apply a 50% discount
+            setDiscount(getTotalCartAmount() * 0.5);
+        } else {
+            setDiscount(0); // Reset discount if invalid code
+        }
+    };
 
-    const loadCartData = async (token) =>{
-        const response = await axios.post(url+"/api/cart/get",{},{headers:{token}})
-        setCartItems(response.data.cartData);
-    }
+    const fetchFoodList = async () => {
+        const response = await axios.get(url + "/api/food/list");
+        setFoodList(response.data.data);
+    };
 
-    useEffect(()=>{
-        
-        async function loadData(){
+    const loadCartData = async (token) => {
+        try {
+            const response = await axios.post(url + "/api/cart/get", {}, { headers: { token } });
+            console.log(response.data); // Log the response to verify it's correct
+            setCartItems(response.data.cartData);
+        } catch (error) {
+            console.error("Error loading cart data:", error);
+        }
+    };
+    
+    useEffect(() => {
+        async function loadData() {
             await fetchFoodList();
-            if(localStorage.getItem("token")){
+            if (localStorage.getItem("token")) {
                 setToken(localStorage.getItem("token"));
-                await loadCartData(localStorage.getItem("token"))
+                await loadCartData(localStorage.getItem("token"));
             }
         }
         loadData();
-    },[])
+    }, []);
+   
+
     const clearCart = () => {
         setCartItems({});
     };
-    
+
     const contextValue = {
         food_list,
         cartItems,
@@ -80,14 +99,16 @@ const StoreContextProvider = (props) => {
         clearCart,
         url,
         token,
-        setToken
-    }
+        setToken,
+        discount,  // Provide the discount value
+        applyPromoCode,  // Provide the function to apply promo code
+    };
 
     return (
         <StoreContext.Provider value={contextValue}>
             {props.children}
         </StoreContext.Provider>
-    )
-}
+    );
+};
 
 export default StoreContextProvider;

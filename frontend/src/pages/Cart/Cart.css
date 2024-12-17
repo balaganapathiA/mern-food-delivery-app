@@ -104,3 +104,19 @@
         justify-content: start;
     }
 }
+
+/* Styling for the promo code message */
+.promo-message {
+    margin-top: 10px;   /* Add margin to push it down below the input */
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.promo-message.success {
+    color: #28a745; /* Green for success */
+}
+
+.promo-message.fail {
+    color: #dc3545; /* Red for failure */
+}

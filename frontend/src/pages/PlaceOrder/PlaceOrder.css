@@ -1,111 +1,110 @@
 /* Main Container */
 .place-order {
-    display: flex;
-    gap: 30px;
-    margin-top: 40px;
-  }
-  
-  /* Left Section - Delivery Information */
-  .place-order-left {
-    width: 50%;
-  }
-  
-  .place-order-left .title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-  
-  .place-order-left input {
-    margin-bottom: 15px;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-  }
-  
-  .place-order-left input:focus {
-    border-color: #4CAF50;
-  }
-  
-  .multi-fields {
-    display: flex;
-    gap: 15px;
-  }
-  
-  /* Right Section - Cart Total */
-  .place-order-right {
-    width: 50%;
-  }
-  
-  .cart-total {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .cart-total h2 {
-    margin-bottom: 20px;
-  }
-  
-  .cart-total-detail {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  hr {
-    margin: 15px 0;
-    border: 1px solid #eee;
-  }
-  
-  .cart-total-detail b {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .payment-method {
-    margin-top: 20px;
-  }
-  
-  .payment-method label {
-    display: block;
-    font-size: 18px;
-    margin-bottom: 15px;
-    cursor: pointer;
-  }
-  
-  .payment-method input {
-    margin-right: 10px;
-  }
-  
-  button[type="submit"] {
-    width: 100%;
-    padding: 15px;
-    font-size: 18px;
-    color: #fff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #45a049;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .place-order {
+  display: flex;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* Left Section - Delivery Information */
+.place-order-left {
+  width: 50%;
+}
+
+.place-order-left .title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.place-order-left input {
+  margin-bottom: 15px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.place-order-left input:focus {
+  border-color: #4CAF50;
+}
+
+.multi-fields {
+  display: flex;
+  gap: 15px;
+}
+
+/* Right Section - Cart Total */
+.place-order-right {
+  width: 50%;
+}
+
+.cart-total {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cart-total h2 {
+  margin-bottom: 20px;
+}
+
+.cart-total-detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+hr {
+  margin: 15px 0;
+  border: 1px solid #eee;
+}
+
+.cart-total-detail b {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.payment-method {
+  margin-top: 20px;
+}
+
+.payment-method label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.payment-method input {
+  margin-right: 10px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .place-order {
       flex-direction: column;
       align-items: center;
-    }
-  
-    .place-order-left, .place-order-right {
-      width: 100%;
-    }
   }
-  
+
+  .place-order-left, .place-order-right {
+      width: 100%;
+  }
+}

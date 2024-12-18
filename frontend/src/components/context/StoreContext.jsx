@@ -8,7 +8,7 @@ const StoreContextProvider = (props) => {
     const [food_list, setFoodList] = useState([]);
     const [token, setToken] = useState("");
     const [discount, setDiscount] = useState(0);  // Add state for discount
-    const url = "http://localhost:4000";
+    const url = "https://mern-food-delivery-app-backend-hl9c.onrender.com";
 
     const addToCart = async (itemId) => {
         if (!cartItems[itemId]) {

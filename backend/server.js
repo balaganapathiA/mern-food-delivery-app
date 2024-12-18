@@ -12,7 +12,11 @@ const app = express()
 const port = process.env.PORT || 4000 
 // middleware
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: 'https://mern-food-delivery-app-frontend-bjzq.onrender.com', // Replace with your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true, // Allow cookies (if necessary)
+}))
 
 //db connection
 connectDB();

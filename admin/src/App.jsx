@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
 
-  const url = 'http://localhost:4000';
+  const url = 'https://mern-food-delivery-app-backend-hl9c.onrender.com';
 
   return (
     <div>

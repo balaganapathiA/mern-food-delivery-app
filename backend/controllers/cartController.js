@@ -55,23 +55,34 @@ const removeFromCart = async (req, res) => {
     }
 };
 
-// Fetch user cart data
-const getCart = async (req, res) => {
-    try {
-        const { userId } = req.body;
 
-        // Fetch user data
-        const userData = await userModel.findById(userId);
-        if (!userData) {
-            return res.status(404).json({ success: false, message: 'User not found' });
+
+export const getCart = async (req, res) => {
+    try {
+        const userId = req.user?.id; // Assuming user ID is decoded from JWT
+
+        if (!userId) {
+            return res.status(401).json({ success: false, message: "Unauthorized - User ID missing" });
         }
 
-        const cartData = userData.cartData || {};
-        res.json({ success: true, cartData });
+        console.log("User ID from JWT:", userId);
+
+        let cart = await Cart.findOne({ userId });
+        console.log("Cart Query Result:", cart);
+
+        if (!cart) {
+            // Optionally create an empty cart if none exists
+            cart = new Cart({ userId, items: [] });
+            await cart.save();
+        }
+
+        res.status(200).json({ success: true, cartData: cart.items });
     } catch (error) {
-        console.error("Error fetching cart data:", error);
-        res.status(500).json({ success: false, message: 'Internal Server Error' });
+        console.error("Error in getCart:", error);
+        res.status(500).json({ success: false, message: "Server Error" });
     }
 };
 
-export { addToCart, removeFromCart, getCart };
+
+
+export { addToCart, removeFromCart };
